@@ -38,3 +38,6 @@ fig = ff.create_distplot(
 
 # Plot!
 st.plotly_chart(fig, use_container_width=True)
+
+
+st.markdown("This is a markdown cell")
