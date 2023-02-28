@@ -1,10 +1,7 @@
 import zipfile
 import geopandas
-
 import pandas as pd
-
 import plotly.express as px
-
 import streamlit as st
 
 
@@ -78,7 +75,7 @@ with st.spinner('Loading Data...'):
 
     # plot
     fig1 = px.line(data_grouped, x="date", y="mean_travel_time", title="Average Travel Time per Day",
-                  labels={"mean_travel_time": "Mean travel time (minutes)", "date": "Date"})
+                   labels={"mean_travel_time": "Mean travel time (minutes)", "date": "Date"})
     st.plotly_chart(fig1, use_container_width=True)
 
 with st.spinner("Loading Data..."):
@@ -86,8 +83,9 @@ with st.spinner("Loading Data..."):
     data_grouped.mean_travel_time = data_grouped.mean_travel_time.astype(int) / 60
 
     fig2 = px.bar(data_grouped, x="day_of_week_str", y="mean_travel_time", color="day_period", facet_col="day_period",
-                  title="Average Travel Time per Day Period and Day of week", labels={"mean_travel_time": "Mean travel time (minutes)",
-                                                                      "day_period": "Day Period", "day_of_week_str": "Day of Week"})
+                  title="Average Travel Time per Day Period and Day of week",
+                  labels={"mean_travel_time": "Mean travel time (minutes)",
+                          "day_period": "Day Period", "day_of_week_str": "Day of Week"})
     st.plotly_chart(fig2, use_container_width=True)
 
 with st.spinner("Loading Data..."):
@@ -95,8 +93,8 @@ with st.spinner("Loading Data..."):
     gdf = codes[(codes.DISPLAY_NAME == add_selectbox) | (codes.DISPLAY_NAME == add_selectbox2)]
 
     fig3 = px.choropleth_mapbox(gdf, geojson=gdf.geometry, locations=gdf.index, hover_data=['DISPLAY_NAME'],
-                               color_continuous_scale='OrRd', mapbox_style='open-street-map', zoom=10,
-                               center={'lat': gdf.geometry.centroid.y.mean(), 'lon': gdf.geometry.centroid.x.mean()})
+                                color_continuous_scale='OrRd', mapbox_style='open-street-map', zoom=10,
+                                center={'lat': gdf.geometry.centroid.y.mean(), 'lon': gdf.geometry.centroid.x.mean()})
 
     # Show the map
     st.header("Map of Madrid")
